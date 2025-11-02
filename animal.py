@@ -25,11 +25,12 @@ class HealthIssue:
         self.__description = description
         self.__reported_on = reported_on
         self.__severity = severity
-        self.__treatment_notes = False
+        self.__treatment_notes = treatment_notes
+        self.__under_treatment = False
 
     # Health Issue Methods
     def start_treatment(self, notes=""):
-        self.__treatment_notes = True
+        self.__under_treatment = True
         if notes:
             self.__treatment_notes += ("\n" + notes) if self.__treatment_notes else notes
 
@@ -56,5 +57,18 @@ class HealthIssue:
     def get_severity(self):
         return self.__severity
 
-    def get_treatment_notes(self):
-        return self.__treatment_notes
+    def is_under_treatment(self):
+        return self.__under_treatment
+
+    # Test suite to test the objects, methods and validation
+if __name__ == '__main__':
+    from datetime import date
+    issue = HealthIssue("Broken Leg", date.today(), 3, "Rest 6 Weeks")
+    assert issue.get_severity() == 3
+    issue.start_treatment("Cast Applied")
+    assert issue.is_under_treatment() is True
+    issue.finish_treatment("All Better")
+    assert issue.is_under_treatment() is False
+    print("HealthIssue tests completed successfully")
+
+
