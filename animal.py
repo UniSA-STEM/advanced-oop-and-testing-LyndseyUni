@@ -22,6 +22,7 @@ class HealthIssue:
             raise ValueError("Severity must be between 1 and 5")
 
         # Health Issue private attributes
+
         self.__description = description
         self.__reported_on = reported_on
         self.__severity = severity
@@ -29,6 +30,7 @@ class HealthIssue:
         self.__under_treatment = False
 
     # Health Issue Methods
+
     def start_treatment(self, notes=""):
         self.__under_treatment = True
         if notes:
@@ -48,6 +50,7 @@ class HealthIssue:
             "under_treatment" : self.__under_treatment,
         }
     # Getters
+
     def get_description(self):
         return self.__description
 
@@ -60,7 +63,8 @@ class HealthIssue:
     def is_under_treatment(self):
         return self.__under_treatment
 
-    # Test suite to test the objects, methods and validation
+# Test suite to test the objects, methods and validation of the HealthIssue class
+
 if __name__ == '__main__':
     from datetime import date
     issue = HealthIssue("Broken Leg", date.today(), 3, "Rest 6 Weeks")
@@ -70,5 +74,7 @@ if __name__ == '__main__':
     issue.finish_treatment("All Better")
     assert issue.is_under_treatment() is False
     print("HealthIssue tests completed successfully")
+
+
 
 
