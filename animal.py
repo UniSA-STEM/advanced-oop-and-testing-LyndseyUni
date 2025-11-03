@@ -13,7 +13,9 @@ from datetime import date
 
 class HealthIssue:
     def __init__(self, description, reported_on, severity, treatment_notes=""):
+
         # data validation and exception handling
+
         if not description or not isinstance (description, str):
             raise ValueError("Description must be a string")
         if not isinstance (reported_on, date):
@@ -81,6 +83,58 @@ if __name__ == '__main__':
     issue.finish_treatment("All Better")
     assert issue.is_under_treatment() is False
     print("HealthIssue tests completed successfully")
+
+from abc import ABC, abstractmethod
+
+class Animal(ABC):
+    def __init__(self, name, species, age, diet):
+
+        # data validation and exception handling
+
+        if not name or not isinstance (name, str):
+            raise ValueError("Name must be a string")
+        if not isinstance (species, str):
+            raise ValueError("Species must be a string")
+        if not isinstance (age, int) or age <= 0:
+            raise ValueError("Age must be a positive integer")
+        if not diet or isinstance (diet, str):
+            raise ValueError("Diet must be a string")
+
+        # Animal class private attributes
+
+        self.__name = name
+        self.__species = species
+        self.__age = age
+        self.__diet = diet
+        self.__health_records = []
+        self.__assigned_enclosure = None
+
+    @abstractmethod
+    def make_sound(self):
+        pass
+
+    # Methods of actions with exception handling
+
+    # Ensures a food is entered and prompts if it is not
+
+    def eat(self, food):
+        if not food:
+            raise ValueError("Food must be provided")
+        return f"{self.__name} eats {food} {self.__diet}"
+
+    # Ensures a number of hours of sleep is entered and prompts if not or if negative
+
+    def sleep(self, hours):
+        if not isinstance (hours, int) or hours <= 0:
+            raise ValueError("Hours must be a positive integer")
+        return f" {self.__name} sleeps for {hours} hours"
+
+
+
+
+
+
+
 
 
 
