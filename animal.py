@@ -33,7 +33,7 @@ class HealthIssue:
 
     # Health Issue Methods
 
-    # tells if the animal is under treatment and optionally adds or appends their treatment notes
+    # Tells if the animal is under treatment and optionally adds or appends their treatment notes
 
     def start_treatment(self, notes=""):
         self.__under_treatment = True
@@ -128,6 +128,27 @@ class Animal(ABC):
         if not isinstance (hours, int) or hours <= 0:
             raise ValueError("Hours must be a positive integer")
         return f" {self.__name} sleeps for {hours} hours"
+
+    # Health Methods and exception handling
+
+    # Validates and stores a health issue in the animal's health records
+
+    def add_health_issue(self, issue):
+        if not isinstance (issue, HealthIssue):
+            raise ValueError("Issue must be a HealthIssue")
+        self.__health_records.append(issue)
+
+    # Creates a health report and stores the animal's health issues in a list
+
+    def health_report(self):
+        return [issue.to_zoo_log() for issue in self.__health_records]
+
+    # Returns True if the animal is under treatment False if treatment is finished
+
+    def is_under_treatment(self):
+        return any(issue.is_under_treatment() for issue in self.__health_records)
+
+
 
 
 
