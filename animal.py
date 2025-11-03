@@ -148,6 +148,50 @@ class Animal(ABC):
     def is_under_treatment(self):
         return any(issue.is_under_treatment() for issue in self.__health_records)
 
+    # Methods for assigning / unassigning an enclosure for an Animal
+
+    # Assigning an animal to an enclosure in the zoo
+
+    def assign_enclosure(self, enclosure_name):
+        self.__assigned_enclosure = enclosure_name
+
+    # Unassigning an animal to an enclosure in the zoo
+
+    def unassign_enclosure(self):
+        self.__assigned_enclosure = None
+
+    # Getters
+    def get_name(self):
+        return self.__name
+    def get_species(self):
+        return self.__species
+    def get_age(self):
+        return self.__age
+    def get_diet(self):
+        return self.__diet
+    def get_assigned_enclosure(self):
+        return self.__assigned_enclosure
+
+    # String Conversion
+
+    def __str__ (self):
+        return f"{self.__name}, {self.__species}, {self.__age}"
+
+# Adding concrete classes to the Animal class using inheritance and polymorphism
+
+class Mammal(Animal):
+    def make_sound(self):
+        return f"{self.get_name()} the {self.get_species()} Growls"
+
+class Bird(Animal):
+    def make_sound(self):
+        return f"{self.get_name()} the {self.get_species()} Tweets"
+
+class Reptile(Animal):
+    def make_sound(self):
+        return f"{self.get_name()} the {self.get_species()} Hisses"
+
+
 
 
 
