@@ -13,7 +13,7 @@ from datetime import date
 
 class HealthIssue:
     def __init__(self, description, reported_on, severity, treatment_notes=""):
-        # data validation
+        # data validation and exception handling
         if not description or not isinstance (description, str):
             raise ValueError("Description must be a string")
         if not isinstance (reported_on, date):
@@ -31,15 +31,22 @@ class HealthIssue:
 
     # Health Issue Methods
 
+    # tells if the animal is under treatment and optionally adds or appends their treatment notes
+
     def start_treatment(self, notes=""):
         self.__under_treatment = True
         if notes:
             self.__treatment_notes += ("\n" + notes) if self.__treatment_notes else notes
 
+
+    # shows the treatment is complete and optionally adds closing notes to their treatment notes
+
     def finish_treatment(self, notes=""):
         self.__under_treatment = False
         if notes:
             self.__treatment_notes += ("\n" + notes) if self.__treatment_notes else notes
+
+    # Creates and returns a dictionary recording all the key information about a health issue
 
     def to_zoo_log(self):
         return {
