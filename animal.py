@@ -87,7 +87,7 @@ if __name__ == '__main__':
 from abc import ABC, abstractmethod
 
 class Animal(ABC):
-    def __init__(self, name, species, age, diet):
+    def __init__(self, name, species, age, diet: str):
 
         # data validation and exception handling
 
@@ -97,7 +97,7 @@ class Animal(ABC):
             raise ValueError("Species must be a string")
         if not isinstance (age, int) or age <= 0:
             raise ValueError("Age must be a positive integer")
-        if not diet or isinstance (diet, str):
+        if not diet or not isinstance (diet, str):
             raise ValueError("Diet must be a string")
 
         # Animal class private attributes
@@ -191,6 +191,21 @@ class Reptile(Animal):
     def make_sound(self):
         return f"{self.get_name()} the {self.get_species()} Hisses"
 
+# Test suite to test the objects, methods and validation of the Animal class and subclasses
+
+if __name__ == '__main__':
+    from datetime import date
+    lion = Mammal("Simba", "Lion", 5, "Carnivore")
+    assert lion.get_name() == "Simba"
+    assert "Growls" in lion.make_sound()
+    assert "Carnivore" in lion.eat("Meat")
+    assert "sleeps" in lion.sleep(4)
+    issue = HealthIssue("Broken Leg", date.today(), 3, "Rest 6 Weeks")
+    lion.add_health_issue(issue)
+    assert len(lion.health_report()) == 1
+    lion.assign_enclosure("Tanzania")
+    assert lion.get_assigned_enclosure() == "Tanzania"
+    print("Animal Tests completed successfully")
 
 
 
