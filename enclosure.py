@@ -39,7 +39,7 @@ class Enclosure(ABC):
     # Abstract Methods
 
     @abstractmethod
-    def is_suitable(self, animal) -> bool:
+    def is_suitable(self, animal: Animal) -> bool:
         pass
 
     @abstractmethod
@@ -49,6 +49,14 @@ class Enclosure(ABC):
     @abstractmethod
     def feed_animal(self):
         pass
+
+    # Concrete method with data validation and exception handling
+
+    def add_animal(self, animal: Animal):
+        if len(self.__animals) >= self.__size:
+            raise ValueError(f"Enclosure '{self.__name}' is full")
+        if not self.__is_suitable:
+            raise ValueError(f"Enclosure '{animal.get_species()}' cannot live in {self.__enc_type}")
 
 
 
