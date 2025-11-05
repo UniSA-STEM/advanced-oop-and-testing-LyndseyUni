@@ -11,7 +11,7 @@ This is my own work as defined by the University's Academic Integrity Policy.
 
 from animal import Animal
 from abc import ABC, abstractmethod
-from datetime import datetime
+from typing import List
 
 # Create the Enclosure class
 
@@ -24,22 +24,31 @@ class Enclosure(ABC):
             raise ValueError("Name must be a string")
         if not enc_type or not isinstance (enc_type, str):
             raise ValueError("Enc_type must be a string")
-        if not isinstance (size, int):
+        if not isinstance (size, int) or size <= 0:
             raise ValueError("Size must be an integer")
 
     # Enclosure class private attributes
 
         self.__name = name
         self.__enc_type = enc_type
-        self.__cleanliness = 100
+        self.__size = size
+        self.__cleanliness = "Clean"
         self.__animals = []
-        self.__last_cleaned = None
-        self.__feeding_log = []
+        self.__cleaning_log: List[str] = []
+        self.__feeding_log: List[str] = []
 
     # Abstract Methods
 
     @abstractmethod
     def is_suitable(self, animal: Animal) -> bool:
+        pass
+
+    @abstractmethod
+    def daily_routine(self):
+        pass
+
+    @abstractmethod
+    def generate_report(self):
         pass
 
     @abstractmethod
@@ -50,13 +59,41 @@ class Enclosure(ABC):
     def feed_animal(self):
         pass
 
-    # Concrete method with data validation and exception handling
+    # Concrete methods with data validation and exception handling
+
+    def feed_log(self, note="Fed"):
+        self.__feeding_log.append(note)
+
+    def clean_log(self, note="Cleaned"):
+        self.__cleaning_log.append(note)
+        self.__cleanliness = "Clean"
 
     def add_animal(self, animal: Animal):
         if len(self.__animals) >= self.__size:
             raise ValueError(f"Enclosure '{self.__name}' is full")
         if not self.__is_suitable:
             raise ValueError(f"Enclosure '{animal.get_species()}' cannot live in {self.__enc_type}")
+
+    def remove_animal(self, animal: Animal):
+        if animal in self.__animals:
+            self.__animals.remove(animal)
+
+    def clean(self):
+        self.__cleanliness = "Clean"
+
+    def enc_info(self):
+        return {
+            "name": self.__name,
+            "enclosure": self.__enc_type,
+            "size": self.__size,
+            "cleanliness": self.__cleanliness,
+            "animals": [str(a) for a in self.__animals],
+        }
+
+
+
+
+
 
 
 
