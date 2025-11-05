@@ -15,8 +15,8 @@ from datetime import datetime
 
 # Create the Enclosure class
 
-class Enclosure:
-    def __init__(self, name, enc_type, size):
+class Enclosure(ABC):
+    def __init__(self, name: str, enc_type: str, size: int):
 
         # data validation and exception handling
 
@@ -31,8 +31,25 @@ class Enclosure:
 
         self.__name = name
         self.__enc_type = enc_type
-        self.__cleanliness = "Clean"
+        self.__cleanliness = 100
         self.__animals = []
+        self.__last_cleaned = None
+        self.__feeding_log = []
+
+    # Abstract Methods
+
+    @abstractmethod
+    def is_suitable(self, animal) -> bool:
+        pass
+
+    @abstractmethod
+    def clean_enclosure(self):
+        pass
+
+    @abstractmethod
+    def feed_animal(self):
+        pass
+
 
 
 
