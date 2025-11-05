@@ -88,11 +88,11 @@ class Enclosure(ABC):
     def remove_animal(self, animal: Animal):
         if animal in self.__animals:
             self.__animals.remove(animal)
+            animal.unassign_enclosure()
 
     # Updates the enclosures cleanliness status
 
     def clean(self):
-        self.__cleanliness = "Clean"
         self.clean_log("Cleaned")
 
     # Getters
@@ -119,7 +119,60 @@ class Enclosure(ABC):
 
 class Aquarium(Enclosure):
     def is_suitable(self, animal: Animal) -> bool:
-        return animal.get_species().lower() in
+        return animal.get_category().lower() == "aquatic"
+
+    def daily_routine(self):
+        self.feed_animal()
+        self.clean_enclosure()
+
+    def generate_report(self):
+        print("--- Aquarium Report ---")
+        for key, value in self.enc_info().items():
+            print(f"{key}: {value}")
+
+    def cleaned_enclosure(self):
+        self.clean_log("Cleaned Aquarium")
+
+class Aviary(Enclosure):
+    def is_suitable(self, animal: Animal) -> bool:
+        return animal.get_category() == "bird"
+
+    def daily_routine(self):
+        self.feed_animal()
+        self.clean_enclosure()
+
+    def generate_report(self):
+        print("--- Aviary Report ---")
+        for key, value in self.enc_info().items():
+            print(f"{key}: {value}")
+
+    def clean_enclosure(self):
+        self.clean_log("Cleaned Aviary")
+
+    def feed_animal(self):
+        for animal in self.__animals():
+           animal.eat("seeds")
+           self.feed_log(f"Fed {animal.get_species()}")
+
+class Vivarium(Enclosure):
+    def is_suitable(self, animal: Animal) -> bool:
+        return animal.get_category() == "land"
+
+    def daily_routine(self):
+        self.feed_animal()
+        self.clean_enclosure()
+
+    def generate_report(self):
+        print("--- Vivarium Report ---")
+        for key, value in self.enc_info().items():
+            print(f"{key}: {value}")
+
+    def clean_enclosure(self):
+        self.clean_log("Cleaned Vivarium")
+
+    def feed_animal(self):
+        for animal in self.get_animals():
+            self.feed_log(f"Fed {animal.get_species()}")
 
 
 
