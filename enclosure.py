@@ -33,7 +33,7 @@ class Enclosure(ABC):
         self.__enc_type = enc_type
         self.__size = size
         self.__cleanliness = "Clean"
-        self.__animals = []
+        self.__animals: List[Animal] = []
         self.__cleaning_log: List[str] = []
         self.__feeding_log: List[str] = []
 
@@ -78,9 +78,10 @@ class Enclosure(ABC):
     def add_animal(self, animal: Animal):
         if len(self.__animals) >= self.__size:
             raise ValueError(f"Enclosure '{self.__name}' is full")
-        if not self.__is_suitable:
+        if not self.__is_suitable(animal):
             raise ValueError(f"Enclosure '{animal.get_species()}' cannot live in {self.__enc_type}")
         self.__animals.append(animal)
+        animal.set_assigned_enclosure(self)
 
     # Removes an animal from the enclosure
 
@@ -92,6 +93,15 @@ class Enclosure(ABC):
 
     def clean(self):
         self.__cleanliness = "Clean"
+        self.clean_log("Cleaned")
+
+    # Getters
+
+    def get_animal(self):
+        return self.__animals.copy()
+
+    def get_cleanliness(self):
+        return self.__cleanliness
 
     # Creates and returns a dictionary recording all the key information about an enclosure
 
@@ -102,7 +112,17 @@ class Enclosure(ABC):
             "size": self.__size,
             "cleanliness": self.__cleanliness,
             "animals": [str(a) for a in self.__animals],
+            "feeding_log": self.__feeding_log,
+            "cleaning_log": self.__cleaning_log,
         }
+# Adding concrete classes to the Enclosure class using inheritance and polymorphism
+
+class Aquarium(Enclosure):
+    def is_suitable(self, animal: Animal) -> bool:
+        return animal.get_species().lower() in
+
+
+
 
 
 

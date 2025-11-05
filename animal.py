@@ -88,7 +88,7 @@ if __name__ == '__main__':
 from abc import ABC, abstractmethod
 
 class Animal(ABC):
-    def __init__(self, name, species, age, diet: str):
+    def __init__(self, name, species, age, diet: str, category: str):
 
         # data validation and exception handling
 
@@ -100,6 +100,8 @@ class Animal(ABC):
             raise ValueError("Age must be a positive integer")
         if not diet or not isinstance (diet, str):
             raise ValueError("Diet must be a string")
+        if not category or not isinstance(category, str):
+            raise ValueError("Category must be a string")
 
         # Animal class private attributes
 
@@ -107,6 +109,7 @@ class Animal(ABC):
         self.__species = species
         self.__age = age
         self.__diet = diet
+        self.__category = category.lower()
         self.__health_records = []
         self.__assigned_enclosure = None
 
@@ -170,6 +173,8 @@ class Animal(ABC):
         return self.__age
     def get_diet(self):
         return self.__diet
+    def get_category(self):
+        return self.__category
     def get_assigned_enclosure(self):
         return self.__assigned_enclosure
 
@@ -196,7 +201,7 @@ class Reptile(Animal):
 
 if __name__ == '__main__':
     from datetime import date
-    lion = Mammal("Simba", "Lion", 5, "Carnivore")
+    lion = Mammal("Simba", "Lion", 5, "Carnivore", "land")
     assert lion.get_name() == "Simba"
     assert "Growls" in lion.make_sound()
     assert "Carnivore" in lion.eat("Meat")
