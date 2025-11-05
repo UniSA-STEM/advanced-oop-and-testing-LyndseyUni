@@ -61,25 +61,39 @@ class Enclosure(ABC):
 
     # Concrete methods with data validation and exception handling
 
+    # Keeps a record of each feed
+
     def feed_log(self, note="Fed"):
         self.__feeding_log.append(note)
+
+    # Keeps a record of each clean
 
     def clean_log(self, note="Cleaned"):
         self.__cleaning_log.append(note)
         self.__cleanliness = "Clean"
+
+    # Adds an animal to the enclosure if they pass two checks:
+    # (if the enclosure is not full and the animal is suitable for the enclosure)
 
     def add_animal(self, animal: Animal):
         if len(self.__animals) >= self.__size:
             raise ValueError(f"Enclosure '{self.__name}' is full")
         if not self.__is_suitable:
             raise ValueError(f"Enclosure '{animal.get_species()}' cannot live in {self.__enc_type}")
+        self.__animals.append(animal)
+
+    # Removes an animal from the enclosure
 
     def remove_animal(self, animal: Animal):
         if animal in self.__animals:
             self.__animals.remove(animal)
 
+    # Updates the enclosures cleanliness status
+
     def clean(self):
         self.__cleanliness = "Clean"
+
+    # Creates and returns a dictionary recording all the key information about an enclosure
 
     def enc_info(self):
         return {

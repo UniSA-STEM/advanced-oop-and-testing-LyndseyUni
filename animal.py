@@ -58,6 +58,7 @@ class HealthIssue:
             "treatment_notes" : self.__treatment_notes,
             "under_treatment" : self.__under_treatment,
         }
+
     # Getters
 
     def get_description(self):
