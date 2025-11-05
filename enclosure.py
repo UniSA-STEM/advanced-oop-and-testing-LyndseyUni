@@ -7,9 +7,11 @@ Username: thrly001
 This is my own work as defined by the University's Academic Integrity Policy.
 '''
 
-# Import Animal class
+# Imports
 
 from animal import Animal
+from abc import ABC, abstractmethod
+from datetime import datetime
 
 # Create the Enclosure class
 
@@ -31,6 +33,8 @@ class Enclosure:
         self.__enc_type = enc_type
         self.__cleanliness = "Clean"
         self.__animals = []
+
+
 
 
 
