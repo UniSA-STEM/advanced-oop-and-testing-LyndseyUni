@@ -9,7 +9,7 @@ This is my own work as defined by the University's Academic Integrity Policy.
 
 # Imports
 
-from animal import Animal
+from animal import Animal, Mammal, Bird, Reptile
 from abc import ABC, abstractmethod
 from typing import List
 
@@ -115,7 +115,7 @@ class Enclosure(ABC):
             "feeding_log": self.__feeding_log,
             "cleaning_log": self.__cleaning_log,
         }
-# Adding concrete classes to the Enclosure class using inheritance and polymorphism
+# Adding concrete subclasses to the Enclosure class using inheritance and polymorphism
 
 class Aquarium(Enclosure):
     def is_suitable(self, animal: Animal) -> bool:
@@ -130,12 +130,15 @@ class Aquarium(Enclosure):
         for key, value in self.enc_info().items():
             print(f"{key}: {value}")
 
-    def cleaned_enclosure(self):
+    def clean_enclosure(self):
         self.clean_log("Cleaned Aquarium")
+
+    def feed_animal(self):
+        self.feed_animal()
 
 class Aviary(Enclosure):
     def is_suitable(self, animal: Animal) -> bool:
-        return animal.get_category() == "bird"
+        return animal.get_category(self) == "bird"
 
     def daily_routine(self):
         self.feed_animal()
@@ -174,7 +177,48 @@ class Vivarium(Enclosure):
         for animal in self.get_animals():
             self.feed_log(f"Fed {animal.get_species()}")
 
+class TestAnimal(Animal):
+    def make_sound(self):
+        return "Test Sound"
 
+# Test suite to test the objects, methods and validation of the Enclosure class and subclasses
+
+def test_aquarium_suitability():
+    aquarium = Aquarium("Water", "Aquarium", 20)
+    fish = Fish("Freddy", "Fish", 2, "Omnivore", "aquatic")
+    turtle = Reptile("Raphael", "Turtle", 15, "Pizza", "aquatic")
+    assert aquarium.is_suitable(fish)
+    aquarium.add_animal(fish)
+    aquarium.add_animal(turtle)
+    assert len(aquarium.get_animals()) == 20
+
+def test_aquarium_is_correct_enclosure():
+    aquarium = Aquarium("Water", "Aquarium", 20)
+    lion = Mammal("Simba", "Lion", 5, "Carnivore", "land")
+    error_raised = False
+    try:
+        aquarium.add_animal(lion)
+    except ValueError:
+        error_raised = True
+    assert error_raised, "Wrong Animal Type"
+
+if __name__ == "__main__":
+    fish = TestAnimal("Freddy", "Fish", 2, "Omnivore", "aquatic")
+    bird = TestAnimal("Rio", "Parrot", 3, "Herbivore", "air" )
+    reptile = TestAnimal("Kaa", "Python", 10, "Carnivore", "land")
+    aquarium = Aquarium("Pond", "Water", 10)
+    aviary = Aviary("Forrest", "Air", 25)
+    vivarium = Vivarium("Reptile House", "Land", 30)
+    assert aquarium.is_suitable(fish)
+    assert aviary.is_suitable(Bird)
+    assert vivarium.is_suitable(reptile)
+    aquarium.clean_log("Cleaned Aquarium")
+    aquarium.feed_log("Fed")
+    assert len(aquarium._Enclosure__cleaning_log) == 1
+    assert len(aquarium._Enclosure__feeding_log) == 1
+    aquarium.remove_animal(fish)
+    assert fish not in aquarium._Enclosure__animals
+    print("Enclosure Tests Passed Successfully")
 
 
 

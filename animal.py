@@ -193,6 +193,9 @@ class Bird(Animal):
     def make_sound(self):
         return f"{self.get_name()} the {self.get_species()} Tweets"
 
+    def get_category(self):
+        return self.__category
+
 class Reptile(Animal):
     def make_sound(self):
         return f"{self.get_name()} the {self.get_species()} Hisses"
