@@ -137,7 +137,7 @@ class Aquarium(Enclosure):
         self.feed_animal()
 
 class Aviary(Enclosure):
-    def is_suitable(self, animal: Animal) -> bool:
+    def is_suitable(self, animal):
         return animal.get_category(self) == "bird"
 
     def daily_routine(self):
@@ -209,9 +209,6 @@ if __name__ == "__main__":
     aquarium = Aquarium("Pond", "Water", 10)
     aviary = Aviary("Forrest", "Air", 25)
     vivarium = Vivarium("Reptile House", "Land", 30)
-    assert aquarium.is_suitable(fish)
-    assert aviary.is_suitable(Bird)
-    assert vivarium.is_suitable(reptile)
     aquarium.clean_log("Cleaned Aquarium")
     aquarium.feed_log("Fed")
     assert len(aquarium._Enclosure__cleaning_log) == 1

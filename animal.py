@@ -181,7 +181,7 @@ class Animal(ABC):
     # String Conversion
 
     def __str__ (self):
-        return f"{self.__name}, {self.__species}, {self.__age}"
+        return f"{self.__name}, {self.__species}, {self.__age}, {self.__diet}, {self.__category}"
 
 # Adding concrete classes to the Animal class using inheritance and polymorphism
 
@@ -192,9 +192,6 @@ class Mammal(Animal):
 class Bird(Animal):
     def make_sound(self):
         return f"{self.get_name()} the {self.get_species()} Tweets"
-
-    def get_category(self):
-        return self.__category
 
 class Reptile(Animal):
     def make_sound(self):
