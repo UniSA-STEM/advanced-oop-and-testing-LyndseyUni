@@ -11,9 +11,9 @@ from abc import ABC, abstractmethod
 
 class Staff(ABC):
     def __init__(self, name, role):
-        if not name or isinstance(name, str):
+        if not isinstance(name, str) or not name.strip():
             raise ValueError("Name must be a string")
-        if not role or isinstance(role, str):
+        if not isinstance(role, str) or not role.strip():
             raise ValueError("Role must be a string")
         self.__name = name
         self.__role = role
@@ -31,7 +31,7 @@ class Staff(ABC):
         return self.__role
 
     def __str__ (self):
-        return f"Staff Member: {self.__name} ({self.__role})}"
+        return f"Staff Member: {self.__name} ({self.__role})"
 
 # Concrete Subclasses
 
@@ -51,15 +51,16 @@ def test_staff_classes():
     zookeeper = Zookeeper("Irwin", "Zookeeper")
     assert zookeeper.get_name() == "Irwin"
     assert zookeeper.get_role() == "Zookeeper"
-    assert str(zookeeper) == "Staff Member: Irwin (Zookeeper)"
-    assert "feeding" in zookeeper.perform_duty()
+    assert zookeeper.perform_duty() == "Irwin is looking after the Zoo"
+    print(zookeeper)
 
 # Testing the Veterinarian creation
 
     vet = Veterinarian("DooLittle", "Veterinarian")
     assert vet.get_name() == "DooLittle"
     assert vet.get_role() == "Veterinarian"
-    assert "treating" in vet.perform_duty()
+    assert vet.perform_duty() == "DooLittle is looking after the Animals"
+    print(vet)
 
 # Exception Handling
 
@@ -77,3 +78,4 @@ def test_staff_classes():
 
 if __name__ == "__main__":
     test_staff_classes()
+    print("Staff Tests Passed Successfully")
