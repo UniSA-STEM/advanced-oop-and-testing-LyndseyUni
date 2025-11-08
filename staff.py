@@ -9,8 +9,13 @@ This is my own work as defined by the University's Academic Integrity Policy.
 
 from abc import ABC, abstractmethod
 
+# Create the Staff class
+
 class Staff(ABC):
     def __init__(self, name, role):
+
+        # Data validation and exception handling
+
         if not isinstance(name, str) or not name.strip():
             raise ValueError("Name must be a string")
         if not isinstance(role, str) or not role.strip():
@@ -33,7 +38,7 @@ class Staff(ABC):
     def __str__ (self):
         return f"Staff Member: {self.__name} ({self.__role})"
 
-# Concrete Subclasses
+# Adding concrete subclasses to the Staff class using inheritance and polymorphism
 
 class Zookeeper(Staff):
     def perform_duty(self):
