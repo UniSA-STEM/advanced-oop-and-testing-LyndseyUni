@@ -121,36 +121,54 @@ class Aquarium(Enclosure):
     def is_suitable(self, animal: Animal) -> bool:
         return animal.get_category().lower() == "aquatic"
 
+    # Method to combine the two tasks into one
+
     def daily_routine(self):
         self.feed_animal()
         self.clean_enclosure()
+
+    # Report generator for the Aquarium class
 
     def generate_report(self):
         print("--- Aquarium Report ---")
         for key, value in self.enc_info().items():
             print(f"{key}: {value}")
 
+    # Recording cleaning activities
+
     def clean_enclosure(self):
         self.clean_log("Cleaned Aquarium")
 
+    # Recording feeding activities
+
     def feed_animal(self):
-        self.feed_animal()
+        for animal in self.__animals():
+            animal.eat("meat")
+            self.feed_log(f"Fed {animal.get_species()}")
 
 class Aviary(Enclosure):
     def is_suitable(self, animal):
         return animal.get_category(self) == "bird"
 
+    # Method to combine the two tasks into one
+
     def daily_routine(self):
         self.feed_animal()
         self.clean_enclosure()
+
+    # Report generator for the Aviary class
 
     def generate_report(self):
         print("--- Aviary Report ---")
         for key, value in self.enc_info().items():
             print(f"{key}: {value}")
 
+    # Recording cleaning activities
+
     def clean_enclosure(self):
         self.clean_log("Cleaned Aviary")
+
+    # Recording feeding activities
 
     def feed_animal(self):
         for animal in self.__animals():
@@ -161,20 +179,29 @@ class Vivarium(Enclosure):
     def is_suitable(self, animal: Animal) -> bool:
         return animal.get_category() == "land"
 
+    # Method to combine the two tasks into one
+
     def daily_routine(self):
         self.feed_animal()
         self.clean_enclosure()
+
+    # Report generator for the Vivarium class
 
     def generate_report(self):
         print("--- Vivarium Report ---")
         for key, value in self.enc_info().items():
             print(f"{key}: {value}")
 
+    # Recording cleaning activities
+
     def clean_enclosure(self):
         self.clean_log("Cleaned Vivarium")
 
+    # Recording feeding activities
+
     def feed_animal(self):
-        for animal in self.get_animals():
+        for animal in self.__animals():
+            animal.eat("Everything")
             self.feed_log(f"Fed {animal.get_species()}")
 
 class TestAnimal(Animal):
