@@ -82,5 +82,10 @@ def test_staff_classes():
         pass
 
 if __name__ == "__main__":
-    test_staff_classes()
-    print("Staff Tests Passed Successfully")
+    from animal import Mammal
+    from enclosure import Vivarium
+    lion = Mammal("Simba", "Lion", 5, "Carnivore", "land")
+    vivarium = Vivarium("Tanzania", "land", 500)
+    keeper = Veterinarian("DooLittle", "Veterinarian")
+    print("Staff tests passed successfully")
+

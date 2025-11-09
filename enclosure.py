@@ -76,9 +76,9 @@ class Enclosure(ABC):
     # (if the enclosure is not full and the animal is suitable for the enclosure)
 
     def add_animal(self, animal: Animal):
-        if len(self.__animals) >= self.__size:
+        if len(self.__animals) >= self._size:
             raise ValueError(f"Enclosure '{self.__name}' is full")
-        if not self.__is_suitable(animal):
+        if not self._is_suitable(animal):
             raise ValueError(f"Enclosure '{animal.get_species()}' cannot live in {self.__enc_type}")
         self.__animals.append(animal)
         animal.set_assigned_enclosure(self)
@@ -107,13 +107,13 @@ class Enclosure(ABC):
 
     def enc_info(self):
         return {
-            "name": self.__name,
-            "enclosure": self.__enc_type,
-            "size": self.__size,
-            "cleanliness": self.__cleanliness,
-            "animals": [str(a) for a in self.__animals],
-            "feeding_log": self.__feeding_log,
-            "cleaning_log": self.__cleaning_log,
+            "name": self._name,
+            "enclosure": self._enc_type,
+            "size": self._size,
+            "cleanliness": self._cleanliness,
+            "animals": [str(a) for a in self._animals],
+            "feeding_log": self._feeding_log,
+            "cleaning_log": self._cleaning_log,
         }
 # Adding concrete subclasses to the Enclosure class using inheritance and polymorphism
 
@@ -121,11 +121,10 @@ class Aquarium(Enclosure):
     def is_suitable(self, animal: Animal) -> bool:
         return animal.get_category().lower() == "aquatic"
 
-    # Method to combine the two tasks into one
-
     def daily_routine(self):
         self.feed_animal()
         self.clean_enclosure()
+
 
     # Report generator for the Aquarium class
 
@@ -142,7 +141,7 @@ class Aquarium(Enclosure):
     # Recording feeding activities
 
     def feed_animal(self):
-        for animal in self.__animals():
+        for animal in self._animals():
             animal.eat("meat")
             self.feed_log(f"Fed {animal.get_species()}")
 
@@ -171,7 +170,7 @@ class Aviary(Enclosure):
     # Recording feeding activities
 
     def feed_animal(self):
-        for animal in self.__animals():
+        for animal in self._animals():
            animal.eat("seeds")
            self.feed_log(f"Fed {animal.get_species()}")
 
@@ -200,7 +199,7 @@ class Vivarium(Enclosure):
     # Recording feeding activities
 
     def feed_animal(self):
-        for animal in self.__animals():
+        for animal in self._animals():
             animal.eat("Everything")
             self.feed_log(f"Fed {animal.get_species()}")
 
