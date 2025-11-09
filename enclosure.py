@@ -236,7 +236,7 @@ class TestAnimal(Animal):
 
 def test_aquarium_suitability():
     aquarium = Aquarium("Water", "Aquarium", 20)
-    fish = Fish("Freddy", "Fish", 2, "Omnivore", "aquatic")
+    whale = Aquarium("Keiko", "Whale", 2, "Omnivore", "aquatic")
     turtle = Reptile("Raphael", "Turtle", 15, "Pizza", "aquatic")
     assert aquarium.is_suitable(fish)
     aquarium.add_animal(fish)

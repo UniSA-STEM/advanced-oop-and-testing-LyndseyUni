@@ -68,7 +68,7 @@ def main():
     # Cleaning
 
     print(irwin.clean_enclosure(vivarium))
-    print(irwin.clean_enclosure(aviary))
+    print(irwin.clean_enclosure(aquarium))
 
     # Health Check
 

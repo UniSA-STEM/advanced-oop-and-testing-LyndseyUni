@@ -44,9 +44,26 @@ class Zookeeper(Staff):
     def perform_duty(self):
         return f"{self.get_name()} is looking after the Zoo"
 
+    def feed_animal(self, animal):
+        try:
+            animal.eat("food")
+        except AttributeError:
+            return f"{animal} cannot be fed"
+        return f"{self.get_name()} fed {animal.get_name()} the {animal.get_species()}"
+
+    def clean_enclosure(self, enclosure):
+        try:
+            enclosure.clean_enclosure()
+        except AttributeError:
+            return f"{enclosure} cannot be cleaned"
+        return f"{self.get_name()} cleaned the {enclosure.get_name()} enclosure"
+
 class Veterinarian(Staff):
     def perform_duty(self):
         return f"{self.get_name()} is looking after the Animals"
+
+    def check_health(self, animal):
+        return f"{self.get_name()} checked {animal.get_name()}'s health"
 
 # Test suite to test the objects, methods and validation of the Staff class and subclasses
 
