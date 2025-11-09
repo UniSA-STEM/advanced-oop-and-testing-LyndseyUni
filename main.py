@@ -19,14 +19,38 @@ def main():
     simba = Mammal("Simba", "Lion", 5, "Carnivore", "land")
     rio = Bird("Rio", "Parrot", 3, "Herbivore", "sky")
     kaa = Reptile("Kaa", "Snake", 5, "Carnivore", "land")
+    keiko = Mammal("Keiko", "Whale", 27, "Carnivore", "water")
 
     # Creating health issue objects
 
     broken_leg = HealthIssue("Broken leg", date.today(), 3, "Rest 6 weeks")
     simba.add_health_issue(broken_leg)
 
-    gastro = HealthIssue("Gastro", date.today(), 3, "Needs meds")
+    gastro = HealthIssue("Gastro", date.today(), 1, "Needs meds")
     rio.add_health_issue(gastro)
 
-    splinter = HealthIssue("Splinter", date.today(), 3, "Extraction")
+    splinter = HealthIssue("Splinter", date.today(), 2, "Extraction")
     kaa.add_health_issue(splinter)
+
+    laceration = HealthIssue("Laceration", date.today(), 7, "Surgery")
+    keiko.add_health_issue(laceration)
+
+    # Create Enclosure objects
+
+    aquarium = Aquarium("Marine", "water", 2000)
+    aviary = Aviary("Sky", "sky", 300)
+    vivarium = Vivarium("Jungle", "land", 2500)
+
+    # Adding animals to enclosures
+
+    aviary.add.animal(rio)
+    vivarium.add.animal(simba)
+    vivarium.add.animal(kaa)
+    aquarium.add_animal(keiko)
+
+    simba.assign_enclosure(vivarium.get_name())
+    rio.assign_enclosure(aviary.get_name())
+    kaa.assign_enclosure(vivarium.get_name())
+    keiko.assign_enclosure(aquarium.get_name())
+
+    # Creating Staff objects
