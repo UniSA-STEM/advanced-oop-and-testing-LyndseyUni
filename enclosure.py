@@ -59,6 +59,10 @@ class Enclosure(ABC):
     def feed_animal(self):
         pass
 
+    @abstractmethod
+    def add_animal(self, animal):
+        pass
+
     # Concrete methods with data validation and exception handling
 
     # Keeps a record of each feed
@@ -76,9 +80,9 @@ class Enclosure(ABC):
     # (if the enclosure is not full and the animal is suitable for the enclosure)
 
     def add_animal(self, animal: Animal):
-        if len(self.__animals) >= self._size:
+        if len(self.__animals) >= self.__size:
             raise ValueError(f"Enclosure '{self.__name}' is full")
-        if not self._is_suitable(animal):
+        if not self.is_suitable(animal):
             raise ValueError(f"Enclosure '{animal.get_species()}' cannot live in {self.__enc_type}")
         self.__animals.append(animal)
         animal.set_assigned_enclosure(self)
@@ -121,6 +125,10 @@ class Aquarium(Enclosure):
     def is_suitable(self, animal: Animal) -> bool:
         return animal.get_category().lower() == "aquatic"
 
+    def add_animal(self, animal):
+        self._Enclosure__animals.append(animal)
+        return f"{animal.get_name()} added to {self._Enclosure__name}"
+
     def daily_routine(self):
         self.feed_animal()
         self.clean_enclosure()
@@ -147,7 +155,11 @@ class Aquarium(Enclosure):
 
 class Aviary(Enclosure):
     def is_suitable(self, animal):
-        return animal.get_category(self) == "bird"
+        return animal.get_category() == "Bird"
+
+    def add_animal(self, animal):
+        self._Enclosure__animals.append(animal)
+        return f"{animal.get_name()} added to {self._Enclosure__name}"
 
     # Method to combine the two tasks into one
 
@@ -177,6 +189,10 @@ class Aviary(Enclosure):
 class Vivarium(Enclosure):
     def is_suitable(self, animal: Animal) -> bool:
         return animal.get_category() == "land"
+
+    def add_animal(self, animal):
+        self._Enclosure__animals.append(animal)
+        return f"{animal.get_name()} added to {self._Enclosure__name}"
 
     # Method to combine the two tasks into one
 

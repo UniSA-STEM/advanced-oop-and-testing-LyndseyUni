@@ -32,7 +32,7 @@ def main():
     splinter = HealthIssue("Splinter", date.today(), 2, "Extraction")
     kaa.add_health_issue(splinter)
 
-    laceration = HealthIssue("Laceration", date.today(), 7, "Surgery")
+    laceration = HealthIssue("Laceration", date.today(), 5, "Surgery")
     keiko.add_health_issue(laceration)
 
     # Create Enclosure objects
@@ -43,9 +43,9 @@ def main():
 
     # Adding animals to enclosures
 
-    aviary.add.animal(rio)
-    vivarium.add.animal(simba)
-    vivarium.add.animal(kaa)
+    aviary.add_animal(rio)
+    vivarium.add_animal(simba)
+    vivarium.add_animal(kaa)
     aquarium.add_animal(keiko)
 
     simba.assign_enclosure(vivarium.get_name())
@@ -85,6 +85,8 @@ def main():
     broken_leg.finish_treatment("Cast Removed, Healed")
     gastro.finish_treatment("Finished Meds, All Better")
 
+if __name__ == '__main__':
+    main()
 
 
 
