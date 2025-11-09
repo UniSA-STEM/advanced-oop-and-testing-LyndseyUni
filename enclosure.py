@@ -101,6 +101,15 @@ class Enclosure(ABC):
 
     # Getters
 
+    def get_name(self):
+        return self.__name
+
+    def get_enc_type(self):
+        return self.__enc_type
+
+    def get_size(self):
+        return self.__size
+
     def get_animal(self):
         return self.__animals.copy()
 
