@@ -54,3 +54,39 @@ def main():
     keiko.assign_enclosure(aquarium.get_name())
 
     # Creating Staff objects
+
+    irwin = Zookeeper("Irwin", "Zookeeper")
+    doolittle = Veterinarian("Doolittle", "Veterinarian")
+
+    # Performing roles
+
+    # Feeding
+
+    print(irwin.feed_animal(simba))
+    print(irwin.feed_animal(rio))
+
+    # Cleaning
+
+    print(irwin.clean_enclosure(vivarium))
+    print(irwin.clean_enclosure(aviary))
+
+    # Health Check
+
+    print(doolittle.check_health(simba))
+    print(doolittle.check_health(keiko))
+
+    # Start Treatment
+
+    broken_leg.start_treatment("Applied Cast")
+    gastro.start_treatment("Supplied Meds")
+
+    # Finish Treatment
+
+    broken_leg.finish_treatment("Cast Removed, Healed")
+    gastro.finish_treatment("Finished Meds, All Better")
+
+
+
+
+
+
