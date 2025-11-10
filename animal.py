@@ -145,7 +145,20 @@ class Animal(ABC):
     # Creates a health report and stores the animal's health issues in a list
 
     def health_report(self):
-        return [issue.to_zoo_log() for issue in self.__health_records]
+        if not self.__health_records:
+            return f"{self.get_name()} Health Report:\nNo health issue recorded.\n"
+        report = f"{self.get_name()} Health Report:\n"
+        for issue in self.__health_records:
+            data = issue.to_zoo_log()
+            report += (
+                f"Description: {data['description']}\n"
+                f"Reported On: {data['reported_on']}\n"
+                f"Severity: {data['severity']}\n"
+                f"Treatment Notes: {data['treatment_notes']}\n"
+                f"Under Treatment: {'Yes' if data['under_treatment'] else 'No'}\n"
+                "-------------------\n"
+                )
+            return report
 
     # Returns True if the animal is under treatment False if treatment is finished
 
@@ -208,7 +221,7 @@ if __name__ == '__main__':
     assert "sleeps" in lion.sleep(4)
     issue = HealthIssue("Broken Leg", date.today(), 3, "Rest 6 Weeks")
     lion.add_health_issue(issue)
-    assert len(lion.health_report()) == 1
+    assert "Broken Leg" in lion.health_report()
     lion.assign_enclosure("Tanzania")
     assert lion.get_assigned_enclosure() == "Tanzania"
     print("Animal Tests completed successfully")

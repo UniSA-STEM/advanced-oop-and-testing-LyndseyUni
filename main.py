@@ -85,6 +85,18 @@ def main():
     broken_leg.finish_treatment("Cast Removed, Healed")
     gastro.finish_treatment("Finished Meds, All Better")
 
+    # Generate the reports for the Zoo and Animals Health
+
+    print("\n---Zoo Status---")
+    for enclosure in [aquarium, aviary, vivarium]:
+        status = enclosure.get_status()
+        print(status)
+
+    print("\n---Animal Health Reports---")
+    for animal in [simba, rio, kaa]:
+        print(animal.health_report())
+
+
 if __name__ == '__main__':
     main()
 

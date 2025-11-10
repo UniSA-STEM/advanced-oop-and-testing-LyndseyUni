@@ -9,7 +9,7 @@ This is my own work as defined by the University's Academic Integrity Policy.
 
 # Imports
 
-from animal import Animal, Mammal, Bird, Reptile
+from animal import Animal, Mammal, Reptile
 from abc import ABC, abstractmethod
 from typing import List
 
@@ -110,7 +110,7 @@ class Enclosure(ABC):
     def get_size(self):
         return self.__size
 
-    def get_animal(self):
+    def get_animals(self):
         return self.__animals.copy()
 
     def get_cleanliness(self):
@@ -120,14 +120,23 @@ class Enclosure(ABC):
 
     def enc_info(self):
         return {
-            "name": self._name,
-            "enclosure": self._enc_type,
-            "size": self._size,
-            "cleanliness": self._cleanliness,
-            "animals": [str(a) for a in self._animals],
-            "feeding_log": self._feeding_log,
-            "cleaning_log": self._cleaning_log,
+            "name": self.__name,
+            "enclosure": self.__enc_type,
+            "size": self.__size,
+            "cleanliness": self.__cleanliness,
+            "animals": [str(a) for a in self.__animals],
+            "feeding_log": self.__feeding_log,
+            "cleaning_log": self.__cleaning_log,
         }
+
+    def get_status(self):
+        info = self.enc_info()
+        return (
+            f"Enclosure: {info['name']} ({info['enclosure']})\n"
+            f"Size: {info['size']}\n"
+            f"Cleanliness: {info['cleanliness']}\n"
+            f"Animals: {','.join(info['animals']) if info['animals'] else 'None'}"
+        )
 # Adding concrete subclasses to the Enclosure class using inheritance and polymorphism
 
 class Aquarium(Enclosure):
@@ -136,19 +145,17 @@ class Aquarium(Enclosure):
 
     def add_animal(self, animal):
         self._Enclosure__animals.append(animal)
-        return f"{animal.get_name()} added to {self._Enclosure__name}"
+        return f"{animal.get_name()} added to {self.get_name()}"
 
     def daily_routine(self):
         self.feed_animal()
         self.clean_enclosure()
 
-
     # Report generator for the Aquarium class
 
     def generate_report(self):
         print("--- Aquarium Report ---")
-        for key, value in self.enc_info().items():
-            print(f"{key}: {value}")
+        print(self.get_status())
 
     # Recording cleaning activities
 
@@ -158,17 +165,17 @@ class Aquarium(Enclosure):
     # Recording feeding activities
 
     def feed_animal(self):
-        for animal in self._animals():
+        for animal in self._Enclosure_animals:
             animal.eat("meat")
             self.feed_log(f"Fed {animal.get_species()}")
 
 class Aviary(Enclosure):
     def is_suitable(self, animal):
-        return animal.get_category() == "Bird"
+        return animal.get_category().lower() == "bird"
 
     def add_animal(self, animal):
         self._Enclosure__animals.append(animal)
-        return f"{animal.get_name()} added to {self._Enclosure__name}"
+        return f"{animal.get_name()} added to {self.get_name}"
 
     # Method to combine the two tasks into one
 
@@ -180,8 +187,7 @@ class Aviary(Enclosure):
 
     def generate_report(self):
         print("--- Aviary Report ---")
-        for key, value in self.enc_info().items():
-            print(f"{key}: {value}")
+        print(self.get_status())
 
     # Recording cleaning activities
 
@@ -191,17 +197,17 @@ class Aviary(Enclosure):
     # Recording feeding activities
 
     def feed_animal(self):
-        for animal in self._animals():
+        for animal in self._Enclosure__animals:
            animal.eat("seeds")
            self.feed_log(f"Fed {animal.get_species()}")
 
 class Vivarium(Enclosure):
     def is_suitable(self, animal: Animal) -> bool:
-        return animal.get_category() == "land"
+        return animal.get_category().lower() == "land"
 
     def add_animal(self, animal):
         self._Enclosure__animals.append(animal)
-        return f"{animal.get_name()} added to {self._Enclosure__name}"
+        return f"{animal.get_name()} added to {self.get_name()}"
 
     # Method to combine the two tasks into one
 
@@ -213,8 +219,7 @@ class Vivarium(Enclosure):
 
     def generate_report(self):
         print("--- Vivarium Report ---")
-        for key, value in self.enc_info().items():
-            print(f"{key}: {value}")
+        print(self.get_status())
 
     # Recording cleaning activities
 
@@ -224,7 +229,7 @@ class Vivarium(Enclosure):
     # Recording feeding activities
 
     def feed_animal(self):
-        for animal in self._animals():
+        for animal in self._Enclosure__animals:
             animal.eat("Everything")
             self.feed_log(f"Fed {animal.get_species()}")
 
