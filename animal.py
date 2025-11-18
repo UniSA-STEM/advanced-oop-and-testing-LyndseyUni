@@ -124,7 +124,7 @@ class Animal(ABC):
     def eat(self, food):
         if not food:
             raise ValueError("Food must be provided")
-        return f"{self.__name} eats {food} {self.__diet}"
+        return f"{self.__name} eats {food} (Diet:{self.__diet})"
 
     # Ensures a number of hours of sleep is entered and prompts if not or if negative
 
