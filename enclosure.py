@@ -165,17 +165,17 @@ class Aquarium(Enclosure):
     # Recording feeding activities
 
     def feed_animal(self):
-        for animal in self._Enclosure_animals:
+        for animal in self._Enclosure__animals:
             animal.eat("meat")
             self.feed_log(f"Fed {animal.get_species()}")
 
 class Aviary(Enclosure):
     def is_suitable(self, animal):
-        return animal.get_category().lower() == "bird"
+        return animal.get_category().lower() == "air"
 
     def add_animal(self, animal):
         self._Enclosure__animals.append(animal)
-        return f"{animal.get_name()} added to {self.get_name}"
+        return f"{animal.get_name()} added to {self.get_name()}"
 
     # Method to combine the two tasks into one
 
@@ -241,12 +241,13 @@ class TestAnimal(Animal):
 
 def test_aquarium_suitability():
     aquarium = Aquarium("Water", "Aquarium", 20)
-    whale = Aquarium("Keiko", "Whale", 2, "Omnivore", "aquatic")
+    whale = TestAnimal("Keiko", "Whale", 2, "Omnivore", "aquatic")
+    fish = TestAnimal("Freddy", "Fish", 2, "Omnivore", "aquatic")
     turtle = Reptile("Raphael", "Turtle", 15, "Pizza", "aquatic")
     assert aquarium.is_suitable(fish)
     aquarium.add_animal(fish)
     aquarium.add_animal(turtle)
-    assert len(aquarium.get_animals()) == 20
+    assert len(aquarium.get_animals()) == 2
 
 def test_aquarium_is_correct_enclosure():
     aquarium = Aquarium("Water", "Aquarium", 20)
@@ -272,7 +273,6 @@ if __name__ == "__main__":
     aquarium.remove_animal(fish)
     assert fish not in aquarium._Enclosure__animals
     print("Enclosure Tests Passed Successfully")
-
 
 
 
