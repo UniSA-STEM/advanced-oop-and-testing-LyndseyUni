@@ -158,7 +158,7 @@ class Animal(ABC):
                 f"Under Treatment: {'Yes' if data['under_treatment'] else 'No'}\n"
                 "-------------------\n"
                 )
-            return report
+        return report
 
     # Returns True if the animal is under treatment False if treatment is finished
 
